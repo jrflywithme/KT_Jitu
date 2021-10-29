@@ -1,0 +1,62 @@
+﻿@page "/Routes/EditRoute/{Id}"
+@using blalogin.Data
+@inject RouteService routeService
+
+@inject NavigationManager NavigationManager
+
+<h2>Edit Route</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <input form="Name" class="form-control" @bind="@obj.Id" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.Routename" />
+            </div>
+            <div class="form-group">
+                <label for="Gender" class="control-label">Billdays</label>
+                <input form="Designation" class="form-control" @bind="@obj.Billdays" />
+
+            </div>
+            <div class="form-group">
+                <label for="Designation" class="control-label">Designation</label>
+                <input form="Designation" class="form-control" @bind="@obj.Supervisorname" />
+            </div>
+            <div class="form-group">
+                <label for="City" class="control-label">City</label>
+                <input form="City" class="form-control" @bind="@obj.Code" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateEmployee" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code { [Parameter]
+    public string Id { get; set; }
+    Route obj = new Route();
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => routeService.GetRouteAsync(Convert.ToInt32(Id)));
+    }
+    protected async void UpdateEmployee()
+    {
+        await routeService.UpdateRouteAsync(obj);
+        NavigationManager.NavigateTo("/Routes/Routes");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Routes/Routes");
+    } }

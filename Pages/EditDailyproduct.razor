@@ -1,0 +1,136 @@
+﻿@page "/EditDailyproduct/{Id}"
+@using blalogin.Data
+@inject DailyproductService dailyproductService
+@inject NavigationManager NavigationManager
+
+<h2>Edit Product</h2>
+<hr />
+
+<form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="MilklType" class="control-label">Shift</label>
+                    <select @bind="@obj.Shift" class="form-control">
+                        <option value="">Select Shift</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Name" class="control-label">Date</label>
+                    <input type="date" class="form-control" @bind="@obj.Date">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Name" class="control-label">SM NO</label>
+                    <input form="Name" class="form-control" @bind="@obj.SmNo" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Code</label>
+                    <input form="Name" class="form-control" @bind="@obj.Code" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Name</label>
+                    <input form="Name" class="form-control" @bind="@obj.AgentName" />
+                </div>
+
+                <div class="form-group">
+                    <label for="MilklType" class="control-label">BM/CM</label>
+                    <select @bind="@obj.BMCM" class="form-control">
+                        <option value="">-Select MilklType</option>
+                        <option value="Buffalo">Buffalo Milk</option>
+                        <option value="Cow">Cow Milk</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Cans</label>
+                    <input form="Name" class="form-control" @bind="@obj.Cans" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Kgs</label>
+                    <input form="Name" class="form-control" @bind="@obj.Kgs" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Ltrs</label>
+                    <input form="Name" class="form-control" @bind="@obj.Ltrs" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Fat</label>
+                    <input form="Name" class="form-control" @bind="@obj.Fat" />
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Name" class="control-label">CLR</label>
+                    <input form="Name" class="form-control" @bind="@obj.CLR" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Name" class="control-label">SNF</label>
+                    <input form="Name" class="form-control" @bind="@obj.SNF" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Name" class="control-label">FatKg</label>
+                    <input form="Name" class="form-control" @bind="@obj.FatKg" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">SnfKg</label>
+                    <input form="Name" class="form-control" @bind="@obj.SnfKg" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Weighment</label>
+                    <input form="Name" class="form-control" @bind="@obj.Weighment" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Qc Entry</label>
+                    <input form="Name" class="form-control" @bind="@obj.QcEntry" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Qty(Org)</label>
+                    <input form="Name" class="form-control" @bind="@obj.QtyOrg" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Fat(Org)</label>
+                    <input form="Name" class="form-control" @bind="@obj.FatOrg" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Snf(Org)</label>
+                    <input form="Name" class="form-control" @bind="@obj.SnfOrg" />
+                </div>
+
+                <div class="form-group" style="margin-top:47px">
+                    <input type="button" class="btn btn-primary" @onclick="@UpateProduct" value="Update" />
+                    <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+</form>
+
+@code { [Parameter]
+    public string Id { get; set; }
+    Dailyproduct obj = new Dailyproduct();
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => dailyproductService.GetdailyproductAsync(Convert.ToInt32(Id)));
+    }
+    protected async void UpateProduct()
+    {
+        await dailyproductService.UpdateDailyproduct(obj);
+        NavigationManager.NavigateTo("Product");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Product");
+    } }

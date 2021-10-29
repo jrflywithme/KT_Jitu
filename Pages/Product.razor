@@ -1,0 +1,84 @@
+﻿@page "/Product"
+@using blalogin.Data
+@inject DailyproductService dailyproductService
+@inject NavigationManager NavigationManager
+
+ <h3>Milk in Entry</h3> 
+
+@if (Pobj is null)
+{
+<p><em>Loading... !</em></p> }
+else
+{<div class="row">
+    <div class="col">
+        <NavLink class="nav-link" href="AddProduct">
+            <button type="button" class="btn btn-primary"><i class="oi oi-plus"></i>  Add New</button>
+        </NavLink>
+    </div>
+    <div class="col">
+        
+
+    </div>
+ 
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sid</th>
+            <th>Date </th>
+            <th>Code</th>
+            <th>Agent</th>
+            <th>Milk Type</th>
+            <th>SmNo</th>
+            <th>QTY</th>
+            <th>Cans</th>
+            <th>Fat</th>
+            <th>SNF</th>
+            <th>FatKg</th>
+            <th>SnfKg</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Pobj)
+        {
+        <tr>
+            <td>@emp.Sid</td>
+            <td>@emp.Date.ToShortDateString()</td>
+            <td>@emp.Code</td>
+            <td>@emp.AgentName</td>
+            <td>@emp.BMCM </td>
+            <td>@emp.SmNo </td>
+            <td>@emp.Ltrs </td>
+            <td>@emp.Cans</td>
+            <td>@emp.Fat</td>
+            <td>@emp.SNF</td>
+            <td>@emp.FatKg</td>
+            <td>@emp.SnfKg</td>
+
+            <td>
+                <a   href="EditDailyproduct/@emp.Sid">
+
+                    <button type="button" class="btn btn-outline-success"> <i class="fa fa-edit"></i> Edit</button>
+                </a>
+
+            </td>
+            <td>
+
+
+                <a  href="DeleteDailyproduct/@emp.Sid">
+                    <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash"></i>  Delete</button>
+
+                </a>
+            </td>
+        </tr>}
+    </tbody>
+</table>}
+
+
+@code { List<Dailyproduct> Pobj;
+    protected override async Task OnInitializedAsync()
+    {
+        Pobj = await Task.Run(() => dailyproductService.GetAllDailyproductsAsync());
+    } }

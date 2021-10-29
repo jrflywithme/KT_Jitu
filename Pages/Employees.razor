@@ -1,0 +1,60 @@
+﻿@page "/Employees"
+@using blalogin.Data
+@inject EmployeeService employeeService
+
+<h3>Employee List</h3>
+<NavLink class="nav-link" href="AddEmployee">
+    <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i>  Add New</button>
+</NavLink>
+
+@if (EmpObj is null)
+{
+<p><em>Loading... !</em></p> }
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Emp Id</th>
+            <th>Employee Name</th>
+            <th>Gender</th>
+            <th>Designation</th>
+            <th>City</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in EmpObj)
+        {
+<tr>
+    <td>@emp.Id</td>
+    <td>@emp.EmployeName</td>
+    <td>@emp.Gender</td>
+    <td>@emp.Designation</td>
+    <td>@emp.City</td>
+    <td>
+        <a class="nav-link" href="EditEmployee/@emp.Id">
+
+            <button type="button" class="btn btn-outline-success"> <i class="fa fa-edit"></i> Edit</button>
+        </a>
+
+    </td>
+    <td>
+
+        <a class="nav-link" href="Delete/@emp.Id">
+            <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash"></i>  Delete</button>
+
+        </a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>}
+
+
+@code { List<Employee> EmpObj;
+    protected override async Task OnInitializedAsync()
+    {
+        EmpObj = await Task.Run(() => employeeService.GetAllEmployeesAsync());
+    } }

@@ -1,0 +1,191 @@
+﻿@page "/Routes/Routes"
+
+@using blalogin.Data;
+@using System.IO;
+@using ExcelDataReader;
+
+@inject RouteService routeService;
+@inject HttpClient client
+
+@code {
+
+    List<Route> RObj;
+
+    public int CurrentPage { get; set; } = 1;
+    public int Count { get; set; }
+    public int PageSize { get; set; } = 10;
+    public int TotalPages { get; set; } = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        RObj = await GetAllRoute();
+        Count = await Task.Run(() => routeService.GetCountAsync());
+        TotalPages = (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+    }
+    async Task pageClick(int i)
+    {
+        CurrentPage = i;
+        RObj = await GetAllRoute();
+        this.StateHasChanged();
+    }
+    void pageClick1(int i)
+    {
+        CurrentPage = i;
+        // RObj = await GetAllRoute();
+    }
+    public async Task<List<Route>> GetAllRoute()
+    {
+        var r = await Task.Run(() => routeService.GetAllRoutesAsync(CurrentPage, PageSize));
+        RObj = r;
+        return r;
+    }
+    private string searchTerm;
+    private List<Route> issues;
+    async Task SearchIssues()
+    {
+        RObj = await routeService.SearchIssuesAsync(searchTerm);
+    }
+    private async Task Clear()
+    {
+        searchTerm = string.Empty;
+        await SearchIssues();
+    }
+    string status;
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            // Just load into .NET memory to show it can be done
+            // Alternatively it could be saved to disk, or parsed in memory, or similar
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+            status = $"Finished loading {file.Size} bytes from {file.Name}";
+            List<Route> routs = new List<Route>();
+            using (var reader = ExcelReaderFactory.CreateReader(ms))
+            {
+                int i = 0;
+                while (reader.Read()) //Each row of the file
+                {
+                    if (i == 0)
+                    {
+                        i = 1;
+                    }
+                    else
+                    {
+                        routs.Add(new Route
+                        {
+                            // Id = Convert.ToInt32(reader.GetValue(0)),
+                            Routename = reader.GetValue(1).ToString(),
+                            Supervisorname = reader.GetValue(2).ToString(),
+                            Billdays = Convert.ToInt32(reader.GetValue(3)),
+                            Code = Convert.ToInt32(reader.GetValue(4))
+                        });
+                    }
+                }
+            }
+            await SaveRoute(routs);
+        }
+    }
+
+    async Task SaveRoute(List<Route> routes)
+    {
+        await routeService.SaveRoutes(routes);
+        await GetAllRoute();
+        status = $"File Save Successfully in database";
+    }
+
+
+}
+
+
+<h3>Route List</h3>
+<div class="row">
+    <div class="col">
+        <NavLink class="nav-link" href="Routes/AddRoute">
+            <button type="button" class="btn btn-primary"><i class="oi oi-plus"></i>   Add New</button>
+        </NavLink>
+    </div>
+    <div class="col">
+        <input type="text" @bind-value="@searchTerm" />
+        <input type="button" class="btn btn-primary" required value="Search" @onclick="@SearchIssues" />
+        <input type="button" class="btn btn-danger" value="Clear" @onclick="@Clear" />
+    </div>
+    <div class="col">
+        @status
+        <InputFile OnChange="HandleSelection" />
+        @*<form method="post" enctype="multipart/form-data" class="form-group">
+                <div>
+                    <input name="file" type="file" class="form-control-file" required />
+                    <input type="button" class="btn btn-primary" required value="Import" />
+                </div>
+            </form>*@
+
+    </div>
+</div>
+
+
+@if (RObj is null)
+{
+    <p><em>Loading... !</em></p> }
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Routename Name</th>
+                <th>Billdays</th>
+                <th>Supervisorname</th>
+                <th>Code</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in RObj)
+            {
+                <tr>
+                    <td>@emp.Id</td>
+                    <td>@emp.Routename</td>
+                    <td>@emp.Billdays</td>
+                    <td>@emp.Supervisorname</td>
+                    <td>@emp.Code</td>
+                    <td>
+                        <a class="nav-link" href="Routes/EditRoute/@emp.Id">
+
+                            <button type="button" class="btn btn-outline-success"> <i class="fa fa-edit"></i> Edit</button>
+                        </a>
+
+                    </td>
+                    <td>
+
+                        <a class="nav-link" href="Routes/Delete/@emp.Id">
+                            <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash"></i>  Delete</button>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>}
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= TotalPages; i++)
+            {
+                var cur = i;
+            <li class="page-item @(i == CurrentPage ? "active" : "")">
+                @*<button class="page-link" @onclick="() => pageClick1(i)">@i</button>*@
+                @*<button class="page-link" @onclick="pageClick1(i)">@i</button>*@
+                <a @onclick="async () => await pageClick(cur)"
+                   asp-route-currentpage="@i"
+                   class="page-link">@i</a>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+
+
