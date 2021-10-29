@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Sri\\blalogin.csproj": {}
+    "D:\\SrikantSir\\KT\\blalogin.csproj": {}
   },
   "projects": {
-    "D:\\Sri\\blalogin.csproj": {
+    "D:\\SrikantSir\\KT\\blalogin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sri\\blalogin.csproj",
+        "projectUniqueName": "D:\\SrikantSir\\KT\\blalogin.csproj",
         "projectName": "blalogin",
-        "projectPath": "D:\\Sri\\blalogin.csproj",
+        "projectPath": "D:\\SrikantSir\\KT\\blalogin.csproj",
         "packagesPath": "C:\\Users\\jitendra.r\\.nuget\\packages\\",
-        "outputPath": "D:\\Sri\\obj\\",
+        "outputPath": "D:\\SrikantSir\\KT\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jitendra.r\\AppData\\Roaming\\NuGet\\NuGet.Config",

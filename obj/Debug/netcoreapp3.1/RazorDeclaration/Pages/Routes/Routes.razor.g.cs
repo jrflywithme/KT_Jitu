@@ -13,91 +13,91 @@ namespace blalogin.Pages.Routes
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "D:\Sri\_Imports.razor"
+#line 1 "D:\SrikantSir\KT\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "D:\Sri\_Imports.razor"
+#line 2 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Sri\_Imports.razor"
+#line 3 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "D:\Sri\_Imports.razor"
+#line 4 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\Sri\_Imports.razor"
+#line 5 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "D:\Sri\_Imports.razor"
+#line 6 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "D:\Sri\_Imports.razor"
+#line 7 "D:\SrikantSir\KT\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "D:\Sri\_Imports.razor"
+#line 8 "D:\SrikantSir\KT\_Imports.razor"
 using blalogin;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "D:\Sri\_Imports.razor"
+#line 9 "D:\SrikantSir\KT\_Imports.razor"
 using blalogin.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "D:\Sri\_Imports.razor"
+#line 10 "D:\SrikantSir\KT\_Imports.razor"
 using BlazorInputFile;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Sri\Pages\Routes\Routes.razor"
+#line 3 "D:\SrikantSir\KT\Pages\Routes\Routes.razor"
 using blalogin.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "D:\Sri\Pages\Routes\Routes.razor"
+#line 4 "D:\SrikantSir\KT\Pages\Routes\Routes.razor"
 using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\Sri\Pages\Routes\Routes.razor"
+#line 5 "D:\SrikantSir\KT\Pages\Routes\Routes.razor"
 using ExcelDataReader;
 
 #line default
@@ -112,7 +112,7 @@ using ExcelDataReader;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 10 "D:\Sri\Pages\Routes\Routes.razor"
+#line 10 "D:\SrikantSir\KT\Pages\Routes\Routes.razor"
        
 
     List<Route> RObj;
@@ -182,10 +182,10 @@ using ExcelDataReader;
                         routs.Add(new Route
                         {
                             // Id = Convert.ToInt32(reader.GetValue(0)),
-                            Routename = reader.GetValue(1).ToString(),
-                            Supervisorname = reader.GetValue(2).ToString(),
-                            Billdays = Convert.ToInt32(reader.GetValue(3)),
-                            Code = Convert.ToInt32(reader.GetValue(4))
+                            Routename = reader.GetValue(0).ToString(),
+                            Supervisorname = reader.GetValue(1).ToString(),
+                            Billdays = Convert.ToInt32(reader.GetValue(2)),
+                            Code = Convert.ToInt32(reader.GetValue(3))
                         });
                     }
                 }
