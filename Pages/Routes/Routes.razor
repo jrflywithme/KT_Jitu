@@ -4,6 +4,11 @@
 @using System.IO;
 @using ExcelDataReader;
 
+@using Syncfusion.XlsIO;
+@using Syncfusion.Drawing;
+@using System.Data;
+
+@inject Microsoft.JSInterop.IJSRuntime JS;
 @inject RouteService routeService;
 @inject HttpClient client
 
@@ -15,6 +20,14 @@
     public int Count { get; set; }
     public int PageSize { get; set; } = 10;
     public int TotalPages { get; set; } = 1;
+    int startPage = 1;
+    int endPage = 4;
+    bool Islastpageload = false;
+    bool IsfirstPageload = true;
+    bool loading = false;
+
+    public bool ShowPrevious => CurrentPage > 1;
+    public bool ShowNext => CurrentPage < TotalPages;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,19 +37,80 @@
     }
     async Task pageClick(int i)
     {
-        CurrentPage = i;
-        RObj = await GetAllRoute();
-        this.StateHasChanged();
+        if (loading == false)
+        {
+            loading = true;
+            CurrentPage = i;
+            if (endPage > 4)
+            {
+                IsfirstPageload = false;
+            }
+            if (startPage == 1)
+            {
+                IsfirstPageload = true;
+            }
+            RObj = await GetAllRoute();
+            this.StateHasChanged();
+        }
     }
-    void pageClick1(int i)
+
+    async Task loadNextfourpage(int i)
     {
         CurrentPage = i;
+        if (CurrentPage > TotalPages)
+        {
+            CurrentPage = TotalPages;
+        }
+
+        if (endPage < TotalPages)
+        {
+            int _lastpage = 0;
+            Islastpageload = false;
+            if (CurrentPage >= endPage)
+            {
+                startPage = endPage + 1;
+                _lastpage = startPage + 4;
+                endPage = _lastpage >= TotalPages ? TotalPages : _lastpage;
+            }
+        }
+        else
+        {
+            endPage = TotalPages;
+            Islastpageload = true;
+        }
+        await pageClick(CurrentPage);
+        // RObj = await GetAllRoute();
+    }
+
+    async Task loadpriviousfourpage(int i)
+    {
+        CurrentPage = i;
+        if (CurrentPage <= 0)
+        {
+            CurrentPage = startPage;
+        }
+        int _fpage = 0;
+
+        _fpage = CurrentPage - 4;
+        if (_fpage > 0)
+        {
+            startPage = _fpage;
+            endPage = startPage + 4;
+            IsfirstPageload = false;
+        }
+        else
+        {
+            startPage = 1;
+            endPage = 4;
+        }
+        await pageClick(CurrentPage);
         // RObj = await GetAllRoute();
     }
     public async Task<List<Route>> GetAllRoute()
     {
         var r = await Task.Run(() => routeService.GetAllRoutesAsync(CurrentPage, PageSize));
         RObj = r;
+        loading = false;
         return r;
     }
     private string searchTerm;
@@ -53,6 +127,8 @@
     string status;
     async Task HandleSelection(IFileListEntry[] files)
     {
+        loading = true;
+        List<Route> routs = new List<Route>();
         var file = files.FirstOrDefault();
         if (file != null)
         {
@@ -61,7 +137,7 @@
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
             status = $"Finished loading {file.Size} bytes from {file.Name}";
-            List<Route> routs = new List<Route>();
+            routs = new List<Route>();
             using (var reader = ExcelReaderFactory.CreateReader(ms))
             {
                 int i = 0;
@@ -92,7 +168,107 @@
     {
         await routeService.SaveRoutes(routes);
         await GetAllRoute();
+        loading = false;
         status = $"File Save Successfully in database";
+    }
+
+    async Task ExportToExcel()
+    {
+        using (ExcelEngine excelEngine = new ExcelEngine())
+        {
+            IApplication application = excelEngine.Excel;
+            application.DefaultVersion = ExcelVersion.Xlsx;
+
+            //Create a workbook.
+            IWorkbook workbook = application.Workbooks.Create(1);
+            IWorksheet worksheet = workbook.Worksheets[0];
+
+            //Initialize DataTable and data get from SampleDataTable method.
+            DataTable table = SampleDataTable();
+
+            //Export data from DataTable to Excel worksheet.
+            worksheet.ImportDataTable(table, true, 1, 1);
+
+            worksheet.UsedRange.AutofitColumns();
+
+
+            //Save the document as a stream and return the stream.
+            using (MemoryStream stream = new MemoryStream())
+            {
+                //Save the created Excel document to MemoryStream
+                workbook.SaveAs(stream);
+
+                //Download the excel file.
+                //await JS.SaveAs("Sample.xlsx", stream.ToArray());
+            }
+        }
+
+
+    }
+    private DataTable SampleDataTable()
+    {
+        DataTable reports = new DataTable();
+        reports.Columns.Add("SalesPerson");
+        reports.Columns.Add("Age", typeof(int));
+        reports.Columns.Add("Salary", typeof(int));
+        reports.Rows.Add("Andy Bernard", 21, 30000);
+        reports.Rows.Add("Jim Halpert", 25, 40000);
+        reports.Rows.Add("Karen Fillippelli", 30, 50000);
+        reports.Rows.Add("Phyllis Lapin", 34, 39000);
+        reports.Rows.Add("Stanley Hudson", 45, 58000);
+
+        return reports;
+    }
+
+    public async Task NavigateToPage(string direction)
+    {
+        if (direction == "next")
+        {
+            if (CurrentPage < TotalPages)
+            {
+                if (CurrentPage == startPage)
+                {
+                    SetPagerSize("forward");
+                }
+                CurrentPage += 1;
+            }
+            await loadNextfourpage(CurrentPage);
+        }
+        else if (direction == "previous")
+        {
+            if (CurrentPage > 1)
+            {
+                if (CurrentPage == startPage)
+                {
+                    SetPagerSize("back");
+                }
+                CurrentPage -= 1;
+            }
+            await loadpriviousfourpage(CurrentPage);
+        }
+        // await pageClick(CurrentPage);
+    }
+
+    public void SetPagerSize(string direction)
+    {
+        if (direction == "forward" && endPage < TotalPages)
+        {
+            startPage = endPage + 1;
+            if (endPage + PageSize < TotalPages)
+            {
+                endPage = startPage + PageSize - 1;
+            }
+            else
+            {
+                endPage = TotalPages;
+            }
+            this.StateHasChanged();
+        }
+        else if (direction == "back" && startPage > 1)
+        {
+            endPage = startPage - 1;
+            startPage = startPage - PageSize;
+        }
     }
 
 
@@ -100,6 +276,7 @@
 
 
 <h3>Route List</h3>
+<div class="row">      <h5>Message : - @status</h5> </div>
 <div class="row">
     <div class="col">
         <NavLink class="nav-link" href="Routes/AddRoute">
@@ -112,15 +289,20 @@
         <input type="button" class="btn btn-danger" value="Clear" @onclick="@Clear" />
     </div>
     <div class="col">
-        @status
-        <InputFile OnChange="HandleSelection" />
+
+        <div class="form-control">
+            <InputFile hidden="@loading" OnChange="HandleSelection" />
+            @*<button class="btn-info" @onclick="@UploadData">Upload data</button>*@
+        </div>
         @*<form method="post" enctype="multipart/form-data" class="form-group">
                 <div>
                     <input name="file" type="file" class="form-control-file" required />
                     <input type="button" class="btn btn-primary" required value="Import" />
                 </div>
             </form>*@
-
+    </div>
+    <div class="col">
+        <button class="btn-info" @onclick="ExportToExcel">Export to Excel</button>
     </div>
 </div>
 
@@ -153,37 +335,48 @@ else
                     <td>@emp.Code</td>
                     <td>
                         <a class="nav-link" href="Routes/EditRoute/@emp.Id">
-
                             <button type="button" class="btn btn-outline-success"> <i class="fa fa-edit"></i> Edit</button>
                         </a>
-
                     </td>
                     <td>
-
                         <a class="nav-link" href="Routes/Delete/@emp.Id">
                             <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash"></i>  Delete</button>
-
                         </a>
                     </td>
                 </tr>
             }
         </tbody>
-    </table>}
-<div>
-    <ul class="pagination">
-        @for (var i = 1; i <= TotalPages; i++)
+    </table>
+    <div>
+        <ul class="pagination">
+            <li>
+                <a class="page-link" @onclick=@(async ()=>await NavigateToPage("previous"))>Prev</a>
+            </li>
+            <li class="page-item" hidden="@IsfirstPageload">
+                <a @onclick="async () => await loadpriviousfourpage(startPage -1)"
+                   class="page-link">...</a>
+            </li>
+            @for (var i = startPage; i <= endPage; i++)
             {
                 var cur = i;
-            <li class="page-item @(i == CurrentPage ? "active" : "")">
-                @*<button class="page-link" @onclick="() => pageClick1(i)">@i</button>*@
-                @*<button class="page-link" @onclick="pageClick1(i)">@i</button>*@
-                <a @onclick="async () => await pageClick(cur)"
-                   asp-route-currentpage="@i"
-                   class="page-link">@i</a>
+                <li class="page-item @(i == CurrentPage ? "active" : "")">
+                    <a @onclick="async () => await pageClick(cur)"
+                       asp-route-currentpage="@i"
+                       class="page-link">@i</a>
+                </li>
+
+            }
+            <li class="page-item" hidden="@Islastpageload">
+                <a @onclick="async () => await loadNextfourpage(endPage+1)"
+                   class="page-link">...</a>
             </li>
-        }
-    </ul>
-</div>
+            <li>
+                <a class="page-link" @onclick=@(async ()=>await NavigateToPage("next"))>Next</a>
+            </li>
+        </ul>
+    </div>
+}
+
 
 
 

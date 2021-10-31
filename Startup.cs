@@ -44,6 +44,7 @@ namespace blalogin
             services.AddScoped<DailyproductService>();
             services.AddScoped<RouteService>();
             services.AddScoped<HttpClient>();
+            //services.AddSingleton<ExcelService>();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
         }
