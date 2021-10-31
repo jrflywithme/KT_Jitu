@@ -489,3 +489,5 @@ D:\SrikantSir\KT\obj\Debug\netcoreapp3.1\blalogin.csproj.CopyComplete
 D:\SrikantSir\KT\obj\Debug\netcoreapp3.1\blalogin.dll
 D:\SrikantSir\KT\obj\Debug\netcoreapp3.1\blalogin.pdb
 D:\SrikantSir\KT\obj\Debug\netcoreapp3.1\blalogin.genruntimeconfig.cache
+D:\SrikantSir\KT\bin\Debug\netcoreapp3.1\Syncfusion.Compression.Portable.dll
+D:\SrikantSir\KT\bin\Debug\netcoreapp3.1\Syncfusion.XlsIO.Portable.dll

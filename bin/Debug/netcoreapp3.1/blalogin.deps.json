@@ -43,6 +43,7 @@
           "MudBlazor": "5.1.5",
           "NLog": "4.7.11",
           "Syncfusion.Blazor.Grid": "19.3.0.45",
+          "Syncfusion.XlsIO.Net.Core": "19.3.0.47",
           "System.Text.Encoding.CodePages": "5.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -1073,7 +1074,7 @@
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "12.0.3",
           "Syncfusion.Blazor.Themes": "19.3.0.45",
-          "Syncfusion.Licensing": "19.3.0.45"
+          "Syncfusion.Licensing": "19.3.0.47"
         },
         "runtime": {
           "lib/netstandard2.1/Syncfusion.Blazor.Core.dll": {
@@ -1252,6 +1253,20 @@
           "lib/netstandard2.1/Syncfusion.Blazor.Themes.dll": {}
         }
       },
+      "Syncfusion.Compression.Net.Core/19.3.0.47": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {
+            "assemblyVersion": "19.3200.0.47",
+            "fileVersion": "19.3200.0.47"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
+        }
+      },
       "Syncfusion.ExcelExport.Net.Core/19.3.0.45": {
         "dependencies": {
           "NETStandard.Library": "2.0.0"
@@ -1266,11 +1281,11 @@
           "lib/netstandard2.0/Syncfusion.ExcelExport.Net.dll": {}
         }
       },
-      "Syncfusion.Licensing/19.3.0.45": {
+      "Syncfusion.Licensing/19.3.0.47": {
         "runtime": {
           "lib/netcoreapp3.1/Syncfusion.Licensing.dll": {
-            "assemblyVersion": "19.3.0.45",
-            "fileVersion": "19.3.0.45"
+            "assemblyVersion": "19.3.0.47",
+            "fileVersion": "19.3.0.47"
           }
         },
         "compile": {
@@ -1289,6 +1304,22 @@
         },
         "compile": {
           "lib/netstandard2.0/Syncfusion.PdfExport.Net.dll": {}
+        }
+      },
+      "Syncfusion.XlsIO.Net.Core/19.3.0.47": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.0",
+          "Syncfusion.Compression.Net.Core": "19.3.0.47",
+          "Syncfusion.Licensing": "19.3.0.47"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {
+            "assemblyVersion": "19.3200.0.47",
+            "fileVersion": "19.3200.0.47"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -3925,6 +3956,13 @@
       "path": "syncfusion.blazor.themes/19.3.0.45",
       "hashPath": "syncfusion.blazor.themes.19.3.0.45.nupkg.sha512"
     },
+    "Syncfusion.Compression.Net.Core/19.3.0.47": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8CmgjIBJDfjJ1aFkTd7fivDWoKcdgQCoPvLuHzRXz2ZN1y+4B9b2D06lu6bxODVeYUdFTzL5NnLLklM1cMWX8Q==",
+      "path": "syncfusion.compression.net.core/19.3.0.47",
+      "hashPath": "syncfusion.compression.net.core.19.3.0.47.nupkg.sha512"
+    },
     "Syncfusion.ExcelExport.Net.Core/19.3.0.45": {
       "type": "package",
       "serviceable": true,
@@ -3932,12 +3970,12 @@
       "path": "syncfusion.excelexport.net.core/19.3.0.45",
       "hashPath": "syncfusion.excelexport.net.core.19.3.0.45.nupkg.sha512"
     },
-    "Syncfusion.Licensing/19.3.0.45": {
+    "Syncfusion.Licensing/19.3.0.47": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1xmsNi9yyUeB71H/hFix5kewNJ+VQp7kRZtV9vlLb6cMpHv5AfTWm3Mm7G+D1pY5KyNlNm8LJbgSjPgSARVD0A==",
-      "path": "syncfusion.licensing/19.3.0.45",
-      "hashPath": "syncfusion.licensing.19.3.0.45.nupkg.sha512"
+      "sha512": "sha512-RRnpiuwIA61ahOydFwgtf9CkYZCUWJLdOxHQvmnEODGE/0sGxx1Q7DIc8VUi5P2D2Izom5XIc2tX2hLCb5bSaw==",
+      "path": "syncfusion.licensing/19.3.0.47",
+      "hashPath": "syncfusion.licensing.19.3.0.47.nupkg.sha512"
     },
     "Syncfusion.PdfExport.Net.Core/19.3.0.45": {
       "type": "package",
@@ -3945,6 +3983,13 @@
       "sha512": "sha512-fU7OTqw40s6zQHZCmYHYKa+YUX4PtkkVfDCHy7NojZrOF66IbCbUmzHM+F3Gb5JaQckgd0DO8zIggpwRiOorhQ==",
       "path": "syncfusion.pdfexport.net.core/19.3.0.45",
       "hashPath": "syncfusion.pdfexport.net.core.19.3.0.45.nupkg.sha512"
+    },
+    "Syncfusion.XlsIO.Net.Core/19.3.0.47": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NEzHjSBqb/k62DXv3+sFzs/1OovnV8hS/3OZql9orGP3hqMm9jxn3td4m9QN/eQYPBueArdVb4oCK+a6brEUiw==",
+      "path": "syncfusion.xlsio.net.core/19.3.0.47",
+      "hashPath": "syncfusion.xlsio.net.core.19.3.0.47.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",

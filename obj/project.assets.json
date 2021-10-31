@@ -681,7 +681,7 @@
           "lib/netstandard1.0/_._": {}
         },
         "build": {
-          "build/netstandard2.0/_._": {}
+          "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
       "Newtonsoft.Json/12.0.3": {
@@ -1018,6 +1018,18 @@
           "buildMultiTargeting/Syncfusion.Blazor.Themes.props": {}
         }
       },
+      "Syncfusion.Compression.Net.Core/19.3.0.47": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
+        }
+      },
       "Syncfusion.ExcelExport.Net.Core/19.3.0.45": {
         "type": "package",
         "dependencies": {
@@ -1030,7 +1042,7 @@
           "lib/netstandard2.0/Syncfusion.ExcelExport.Net.dll": {}
         }
       },
-      "Syncfusion.Licensing/19.3.0.45": {
+      "Syncfusion.Licensing/19.3.0.47": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.1/Syncfusion.Licensing.dll": {}
@@ -1049,6 +1061,20 @@
         },
         "runtime": {
           "lib/netstandard2.0/Syncfusion.PdfExport.Net.dll": {}
+        }
+      },
+      "Syncfusion.XlsIO.Net.Core/19.3.0.47": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "2.0.0",
+          "Syncfusion.Compression.Net.Core": "19.3.0.47",
+          "Syncfusion.Licensing": "19.3.0.47"
+        },
+        "compile": {
+          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -3699,6 +3725,25 @@
         "syncfusion_logo.png"
       ]
     },
+    "Syncfusion.Compression.Net.Core/19.3.0.47": {
+      "sha512": "8CmgjIBJDfjJ1aFkTd7fivDWoKcdgQCoPvLuHzRXz2ZN1y+4B9b2D06lu6bxODVeYUdFTzL5NnLLklM1cMWX8Q==",
+      "type": "package",
+      "path": "syncfusion.compression.net.core/19.3.0.47",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/netstandard1.2/Syncfusion.Compression.Portable.dll",
+        "lib/netstandard1.2/Syncfusion.Compression.Portable.xml",
+        "lib/netstandard1.4/Syncfusion.Compression.Portable.dll",
+        "lib/netstandard1.4/Syncfusion.Compression.Portable.xml",
+        "lib/netstandard2.0/Syncfusion.Compression.Portable.dll",
+        "lib/netstandard2.0/Syncfusion.Compression.Portable.xml",
+        "syncfusion.compression.net.core.19.3.0.47.nupkg.sha512",
+        "syncfusion.compression.net.core.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
     "Syncfusion.ExcelExport.Net.Core/19.3.0.45": {
       "sha512": "cff+Q9qcM3/MtGSeOnFVytUgWuUiklHfekbBWBUzAipDAjVrYJthYN3xvMVHVfyH6E3mGZwsS0QYPs3iSnWr5w==",
       "type": "package",
@@ -3716,10 +3761,10 @@
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Licensing/19.3.0.45": {
-      "sha512": "1xmsNi9yyUeB71H/hFix5kewNJ+VQp7kRZtV9vlLb6cMpHv5AfTWm3Mm7G+D1pY5KyNlNm8LJbgSjPgSARVD0A==",
+    "Syncfusion.Licensing/19.3.0.47": {
+      "sha512": "RRnpiuwIA61ahOydFwgtf9CkYZCUWJLdOxHQvmnEODGE/0sGxx1Q7DIc8VUi5P2D2Izom5XIc2tX2hLCb5bSaw==",
       "type": "package",
-      "path": "syncfusion.licensing/19.3.0.45",
+      "path": "syncfusion.licensing/19.3.0.47",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3743,7 +3788,7 @@
         "lib/netstandard2.0/Syncfusion.Licensing.dll",
         "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Licensing.dll",
         "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.19.3.0.45.nupkg.sha512",
+        "syncfusion.licensing.19.3.0.47.nupkg.sha512",
         "syncfusion.licensing.nuspec",
         "syncfusion_logo.png"
       ]
@@ -3762,6 +3807,26 @@
         "lib/netstandard2.0/Syncfusion.PdfExport.Net.xml",
         "syncfusion.pdfexport.net.core.19.3.0.45.nupkg.sha512",
         "syncfusion.pdfexport.net.core.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
+    "Syncfusion.XlsIO.Net.Core/19.3.0.47": {
+      "sha512": "NEzHjSBqb/k62DXv3+sFzs/1OovnV8hS/3OZql9orGP3hqMm9jxn3td4m9QN/eQYPBueArdVb4oCK+a6brEUiw==",
+      "type": "package",
+      "path": "syncfusion.xlsio.net.core/19.3.0.47",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/netstandard1.2/Syncfusion.XlsIO.Portable.dll",
+        "lib/netstandard1.2/Syncfusion.XlsIO.Portable.xml",
+        "lib/netstandard1.4/Syncfusion.XlsIO.Portable.dll",
+        "lib/netstandard1.4/Syncfusion.XlsIO.Portable.xml",
+        "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll",
+        "lib/netstandard2.0/Syncfusion.XlsIO.Portable.xml",
+        "syncfusion.xlsio.net.core.19.3.0.47.nupkg.sha512",
+        "syncfusion.xlsio.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
@@ -6941,6 +7006,7 @@
       "MudBlazor >= 5.1.5",
       "NLog >= 4.7.11",
       "Syncfusion.Blazor.Grid >= 19.3.0.45",
+      "Syncfusion.XlsIO.Net.Core >= 19.3.0.47",
       "System.Text.Encoding.CodePages >= 5.0.0"
     ]
   },
@@ -7030,6 +7096,10 @@
           "Syncfusion.Blazor.Grid": {
             "target": "Package",
             "version": "[19.3.0.45, )"
+          },
+          "Syncfusion.XlsIO.Net.Core": {
+            "target": "Package",
+            "version": "[19.3.0.47, )"
           },
           "System.Text.Encoding.CodePages": {
             "target": "Package",

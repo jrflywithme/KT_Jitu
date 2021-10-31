@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VCHgDFsjXvTr0MCbrbBzGXuWTPqtMJ7YLDfamR8jg8glLWwEFGPMuG+2G9HyrvIcYMVFULKEjoBC5N067QRTUQ==",
+  "dgSpecHash": "YjANZEKuGOdYPp2plhWlrQw7dTUruZw7ZVjlX8YdH45+HMBnY5kHon/ZQoVf0VV4i9iubrr2CcQSjJvaPBuu3A==",
   "success": true,
   "projectFilePath": "D:\\SrikantSir\\KT\\blalogin.csproj",
   "expectedPackageFiles": [
@@ -76,9 +76,11 @@
     "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.blazor.spinner\\19.3.0.45\\syncfusion.blazor.spinner.19.3.0.45.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.blazor.splitbuttons\\19.3.0.45\\syncfusion.blazor.splitbuttons.19.3.0.45.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.blazor.themes\\19.3.0.45\\syncfusion.blazor.themes.19.3.0.45.nupkg.sha512",
+    "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.compression.net.core\\19.3.0.47\\syncfusion.compression.net.core.19.3.0.47.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.excelexport.net.core\\19.3.0.45\\syncfusion.excelexport.net.core.19.3.0.45.nupkg.sha512",
-    "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.licensing\\19.3.0.45\\syncfusion.licensing.19.3.0.45.nupkg.sha512",
+    "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.licensing\\19.3.0.47\\syncfusion.licensing.19.3.0.47.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.pdfexport.net.core\\19.3.0.45\\syncfusion.pdfexport.net.core.19.3.0.45.nupkg.sha512",
+    "C:\\Users\\jitendra.r\\.nuget\\packages\\syncfusion.xlsio.net.core\\19.3.0.47\\syncfusion.xlsio.net.core.19.3.0.47.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\jitendra.r\\.nuget\\packages\\system.collections.immutable\\1.7.1\\system.collections.immutable.1.7.1.nupkg.sha512",
